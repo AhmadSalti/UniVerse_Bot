@@ -37,6 +37,16 @@ rules:
   - intent: mood_unhappy
   - action: utter_mood_unhappy
 
+- rule: Respond to asking the bots name
+  steps:
+  - intent: bot_name
+  - action: utter_botname
+
+- rule: Respond to challenging the bot
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
 - rule: Respond to email inquiry
   steps:
   - intent: ask_email
@@ -52,12 +62,17 @@ rules:
   - intent: ask_remaining_courses
   - action: utter_ask_remaining_courses
 
+- rule: Respond to completed hours inquiry
+  steps:
+  - intent: ask_completed_hours
+  - action: utter_ask_completed_hours
+  
 - rule: Respond to GPA inquiry
   steps:
   - intent: ask_gpa
   - action: utter_ask_gpa
 
-  - rule: Respond to subject description questions
+- rule: Respond to subject description questions
   steps:
   - intent: ask_subject_description
   - action: action_get_subject_description

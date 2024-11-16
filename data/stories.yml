@@ -59,6 +59,16 @@ stories:
   - intent: goodbye
   - action: utter_goodbye
 
+- story: Bot Name
+  steps:
+  - intent: bot_name
+  - action: utter_botname
+
+- story: Bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
 - story: email inquiry
   steps:
   - intent: ask_email
@@ -75,7 +85,7 @@ stories:
   - intent: thanks
   - action: utter_thanks
 
-  - story: ask about subject description
+- story: ask about subject description
   steps:
   - intent: greet
   - action: utter_greet
