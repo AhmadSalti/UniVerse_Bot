@@ -1,14 +1,101 @@
 version: "3.1"
 stories:
-  - story: Admission request
-    steps:
-      - intent: ask_admission
-      - action: utter_admission_info
-  - story: Schedule request
-    steps:
-      - intent: ask_schedule
-      - action: utter_schedule_info
-  - story: Event request
-    steps:
-      - intent: ask_events
-      - action: utter_upcoming_events
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_mood_great
+  - intent: thanks
+  - action: utter_thanks
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: sad path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_mood_unhappy
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: academic inquiry path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_gpa
+  - action: utter_ask_gpa
+  - intent: ask_completed_courses
+  - action: utter_ask_completed_courses
+  - intent: thanks
+  - action: utter_thanks
+
+- story: academic inquiry path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_remaining_courses
+  - action: utter_ask_remaining_courses
+  - intent: ask_email
+  - action: utter_ask_email
+  - intent: thanks
+  - action: utter_thanks
+
+- story: direct academic inquiry
+  steps:
+  - intent: ask_gpa
+  - action: utter_ask_gpa
+  - intent: ask_completed_courses
+  - action: utter_ask_completed_courses
+  - intent: thanks
+  - action: utter_thanks
+
+- story: simple greeting and goodbye
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: email inquiry
+  steps:
+  - intent: ask_email
+  - action: utter_ask_email
+  - intent: thanks
+  - action: utter_thanks
+
+- story: courses inquiry
+  steps:
+  - intent: ask_completed_courses
+  - action: utter_ask_completed_courses
+  - intent: ask_remaining_courses
+  - action: utter_ask_remaining_courses
+  - intent: thanks
+  - action: utter_thanks
+
+  - story: ask about subject description
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_subject_description
+  - action: action_get_subject_description
+  - intent: thanks
+  - action: utter_thanks
+
+- story: direct subject inquiry
+  steps:
+  - intent: ask_subject_description
+  - action: action_get_subject_description
+  - intent: thanks
+  - action: utter_thanks
+
+- story: multiple subject inquiries
+  steps:
+  - intent: ask_subject_description
+  - action: action_get_subject_description
+  - intent: ask_subject_description
+  - action: action_get_subject_description
+  - intent: thanks
+  - action: utter_thanks

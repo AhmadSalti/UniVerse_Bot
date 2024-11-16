@@ -2,12 +2,62 @@ version: "3.1"
 
 rules:
 
+- rule: Say thanks anytime the user says thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- rule: Respond to greetings
+  steps:
+  - intent: greet
+  - action: utter_greet
+
 - rule: Say goodbye anytime the user says goodbye
   steps:
   - intent: goodbye
   - action: utter_goodbye
 
-- rule: Say 'I am a bot' anytime the user challenges
+- rule: Respond to affirmation
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - intent: affirm
+  - action: utter_affirm
+
+- rule: Respond to denial
+  steps:
+  - intent: deny
+  - action: utter_deny
+
+- rule: Respond to good mood
+  steps:
+  - intent: mood_great
+  - action: utter_mood_great
+
+- rule: Respond to unhappy mood
+  steps:
+  - intent: mood_unhappy
+  - action: utter_mood_unhappy
+
+- rule: Respond to email inquiry
+  steps:
+  - intent: ask_email
+  - action: utter_ask_email
+
+- rule: Respond to completed courses inquiry
+  steps:
+  - intent: ask_completed_courses
+  - action: utter_ask_completed_courses
+
+- rule: Respond to remaining courses inquiry
+  steps:
+  - intent: ask_remaining_courses
+  - action: utter_ask_remaining_courses
+
+- rule: Respond to GPA inquiry
+  steps:
+  - intent: ask_gpa
+  - action: utter_ask_gpa
+
+  - rule: Respond to subject description questions
+  steps:
+  - intent: ask_subject_description
+  - action: action_get_subject_description

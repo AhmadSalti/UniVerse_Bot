@@ -1,33 +1,77 @@
 version: "3.1"
 intents:
-  - ask_admission
-  - ask_schedule
-  - ask_events
-  - bot_challenge
+  - greet
+  - goodbye
+  - affirm
+  - thanks
+  - deny
+  - mood_great
+  - mood_unhappy
+  - ask_email
+  - ask_completed_courses
+  - ask_gpa
+  - ask_remaining_courses
+  - ask_completed_hours
+  - ask_subject_description
+  
 entities:
-  - date
+  - subject
+  
 responses:
-  utter_admission_info:
-    - text: "يمكنك التقديم للقبول من خلال موقعنا على الإنترنت. هل ترغب في معرفة المتطلبات؟"
-    - text: "....بالطبع يمكنك! وذلك من خلال اتباع الخطوات التالية"
-    - text: " .....من أجل الحصول على الموافقة قم بإحضار الأوراق التالية  "
-  utter_schedule_info:
-    - text: "الجواب متاح على بوابة الطلاب. هل ترغب في التحقق منه؟"
-    - text: "تبدأ المحاضرة بعد ساعة من الآن "
-    - text: "المحاضرات غدا تبدأ في الساعة 9:00 صباحًا."
-  utter_upcoming_events:
-    - text: "تستضيف الجامعة المؤتمر العلمي حول  "
-    - text: "للأسف لن تقيم الجامعة أي فعالية طلابية على المدى المنظور "
-    - text: "....تقيم الجامعة حفلة للطلاب الخريجين في  "
-  utter_bot_challenge:
-    - text: "عذرا ولكنني نموذج لغوي ولست قادرا على تلبية طلبك"
-    - text: "يؤسفني أنني لا أستطيع القيام بذلك فأنا نموذج بسيط!" 
-  utter_goodbye:  
-    - text: "وداعًا! أتمنى لك يومًا سعيدًا!"  
-    - text: "إلى اللقاء! لا تتردد في العودة إذا كان لديك أي استفسارات أخرى."
-  utter_iamabot:  
-    - text: "أنا نموذج ذكاء اصطناعي تم تصميمه لساعدتك."  
-    - text: "أنا هنا لأساعدك في كل ما يتعلق بالجامعة." 
+  utter_greet:
+    - text: "مرحبا كيف يمكنني مساعدتك."
+    - text: "أهلا وسهلا"
+    - text: "يا مراحب"
+    - text: "مرحبا بك! كيف يمكنني مساعدتك اليوم؟"
+    - text: "أهلا بك! هل يمكنني مساعدتك في شيء ما؟"
+    - text: "مرحبا، كيف يمكنني خدمتك اليوم؟"
+    - text: "مرحبا، هل يمكنني مساعدتك في شيء؟"
+    - text: "أهلا بك! كيف يمكنني الإفادة؟"
+    - text: "أهلا وسهلا كيف يمكنني خدمتك"
+    
+  utter_goodbye:
+    - text: "إلى اللقاء وتذكر دائما أنا موجود لمساعدتك"
+    - text: "وداعا، أتمنى لك يوماً سعيداً!"
+    - text: "مع السلامة، بأمان الله.!"
+    - text: "إلى اللقاء، أتطلع إلى الدردشة معك مرة أخرى!"
+    - text: "وداعا، لا تتردد في العودة إذا كنت بحاجة إلى المزيد من المساعدة!"
+  
+  utter_affirm:
+    - text: "شكرا لك على الاستعانة بالمجيب الخاص بجامعتنا "
+  
+  utter_thanks:
+    - text: "على الرُحب والسعة"
+    - text: "من دواعي سروري  "
+    - text: "اهلا وسهلا"
+    - text: "تكرم"
+    
+  utter_deny:
+    - text: "كنت لأتمنى لو استطعت المساعدة"
+    - text: "اسف لم استطع العثور على الاجابة"
+
+  utter_mood_great:
+    - text: "انا متحمس ومستمتع بالعمل معك"
+  
+  utter_mood_unhappy:
+    - text: "انا اشعر بالحزن لعدم قدرتي على المساعدة"
+
+  utter_ask_email:
+    - text: "بريدك الإلكتروني المسجل لدينا هو email."
+    - text: "بالطبع إيميلك  هو email"
+
+  utter_ask_completed_courses:
+    - text: "لقد أكملت المواد التالية: completed_courses بإجمالي عدد الساعات: completed_hours."
+    - text: "هذه هي المواد التي قد نجحت بها completed_courses بإجمالي عدد الساعات المنجزة: completed_hours ساعة."
+
+  utter_ask_remaining_courses:
+    - text: "لقد تبقى لك المواد التالية: remaining_courses بإجمالي عدد الساعات: remaining_hours."
+  
+  utter_ask_gpa:
+    - text: "معدلك التراكمي حاليا هو gpa."
+
+  utter_ask_completed_hours:
+    - text: "لقد أنجزت completed_hours ساعة."
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
