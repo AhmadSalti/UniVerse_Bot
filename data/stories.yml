@@ -1,111 +1,280 @@
-version: "3.1"
 stories:
+- story: Respond to thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
 
-- story: happy path
+- story: Respond to greetings
   steps:
   - intent: greet
   - action: utter_greet
+
+- story: Say goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: Handle good mood
+  steps:
   - intent: mood_great
   - action: utter_mood_great
-  - intent: thanks
-  - action: utter_thanks
-  - intent: goodbye
-  - action: utter_goodbye
 
-- story: sad path
+- story: Handle unhappy mood
   steps:
-  - intent: greet
-  - action: utter_greet
   - intent: mood_unhappy
   - action: utter_mood_unhappy
-  - intent: goodbye
-  - action: utter_goodbye
 
-- story: academic inquiry path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: ask_gpa
-  - action: utter_ask_gpa
-  - intent: ask_completed_courses
-  - action: utter_ask_completed_courses
-  - intent: thanks
-  - action: utter_thanks
-
-- story: academic inquiry path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: ask_remaining_courses
-  - action: utter_ask_remaining_courses
-  - intent: ask_email
-  - action: utter_ask_email
-  - intent: thanks
-  - action: utter_thanks
-
-- story: direct academic inquiry
-  steps:
-  - intent: ask_gpa
-  - action: utter_ask_gpa
-  - intent: ask_completed_courses
-  - action: utter_ask_completed_courses
-  - intent: thanks
-  - action: utter_thanks
-
-- story: simple greeting and goodbye
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: goodbye
-  - action: utter_goodbye
-
-- story: Bot Name
+- story: Tell bot name
   steps:
   - intent: bot_name
   - action: utter_botname
 
-- story: Bot challenge
+- story: Handle bot challenge
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
 
-- story: email inquiry
+- story: Handle email inquiry
   steps:
   - intent: ask_email
   - action: utter_ask_email
-  - intent: thanks
-  - action: utter_thanks
 
-- story: courses inquiry
-  steps:
-  - intent: ask_completed_courses
-  - action: utter_ask_completed_courses
-  - intent: ask_remaining_courses
-  - action: utter_ask_remaining_courses
-  - intent: thanks
-  - action: utter_thanks
 
-- story: ask about subject description
+- story: Tell time
   steps:
-  - intent: greet
-  - action: utter_greet
+  - intent: ask_time
+  - action: utter_time
+
+- story: Tell joke
+  steps:
+  - intent: ask_joke
+  - action: utter_joke
+
+- story: Handle compliments
+  steps:
+  - intent: compliment_bot
+  - action: utter_thanks_compliment
+
+- story: Give study tips
+  steps:
+  - intent: ask_study_tips
+  - action: utter_study_tips
+
+- story: Handle chitchat
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat
+
+- story: Handle out of scope
+  steps:
+  - intent: out_of_scope
+  - action: utter_out_of_scope
+
+- story: Handle confusion
+  steps:
+  - intent: mood_confused
+  - action: utter_mood_confused
+
+- story: Talk about bot hobbies
+  steps:
+  - intent: bot_hobbies
+  - action: utter_bot_hobbies
+
+- story: Talk about bot favorites
+  steps:
+  - intent: bot_favorite_things
+  - action: utter_bot_favorite_things
+
+- story: Discuss bot personality
+  steps:
+  - intent: bot_personality
+  - action: utter_bot_personality
+
+- story: Talk about bot dreams
+  steps:
+  - intent: bot_dreams
+  - action: utter_bot_dreams
+
+- story: Share bot opinions
+  steps:
+  - intent: bot_opinions
+  - action: utter_bot_opinions
+
+- story: Express bot feelings
+  steps:
+  - intent: bot_feelings_about_user
+  - action: utter_bot_feelings_about_user
+
+- story: Information about IT
+  steps:
+  - intent: ask_about_it
+  - action: utter_about_it
+
+- story: Get branch info
+  steps:
+  - intent: ask_about_branch
+  - action: action_get_branch_info
+
+- story: Handle fallback
+  steps:
+  - intent: nlu_fallback
+  - action: utter_default
+
+- story: Get subject description - helpful
+  steps:
   - intent: ask_subject_description
   - action: action_get_subject_description
-  - intent: thanks
-  - action: utter_thanks
+  - intent: affirm
+  - action: utter_affirm
 
-- story: direct subject inquiry
+- story: Get subject description - unhelpful
   steps:
   - intent: ask_subject_description
   - action: action_get_subject_description
-  - intent: thanks
-  - action: utter_thanks
+  - intent: deny
+  - action: utter_deny
 
-- story: multiple subject inquiries
+- story: Get subject hours - helpful
   steps:
-  - intent: ask_subject_description
-  - action: action_get_subject_description
-  - intent: ask_subject_description
-  - action: action_get_subject_description
-  - intent: thanks
-  - action: utter_thanks
+  - intent: ask_subject_hours
+  - action: action_get_subject_hours
+  - intent: affirm
+  - action: utter_affirm
+
+- story: Get subject hours - unhelpful
+  steps:
+  - intent: ask_subject_hours
+  - action: action_get_subject_hours
+  - intent: deny
+  - action: utter_deny
+
+- story: Get subject practical info - helpful
+  steps:
+  - intent: ask_subject_practical
+  - action: action_get_subject_practical
+  - intent: affirm
+  - action: utter_affirm
+
+- story: Get subject practical info - unhelpful
+  steps:
+  - intent: ask_subject_practical
+  - action: action_get_subject_practical
+  - intent: deny
+  - action: utter_deny
+
+- story: Get subject prerequisites - helpful
+  steps:
+  - intent: ask_subject_prerequisites
+  - action: action_get_subject_prerequisites
+  - intent: affirm
+  - action: utter_affirm
+
+- story: Get subject prerequisites - unhelpful
+  steps:
+  - intent: ask_subject_prerequisites
+  - action: action_get_subject_prerequisites
+  - intent: deny
+  - action: utter_deny
+
+- story: Get subject unlocks - helpful
+  steps:
+  - intent: ask_subject_unlocks
+  - action: action_get_subject_unlocks
+  - intent: affirm
+  - action: utter_affirm
+
+- story: Get subject unlocks - unhelpful
+  steps:
+  - intent: ask_subject_unlocks
+  - action: action_get_subject_unlocks
+  - intent: deny
+  - action: utter_deny
+
+- story: List all subjects - helpful
+  steps:
+  - intent: list_all_subjects
+  - action: action_list_all_subjects
+  - intent: affirm
+  - action: utter_affirm
+
+- story: List all subjects - unhelpful
+  steps:
+  - intent: list_all_subjects
+  - action: action_list_all_subjects
+  - intent: deny
+  - action: utter_deny
+
+- story: Get subject teacher - helpful
+  steps:
+  - intent: ask_subject_teacher
+  - action: action_get_subject_teacher
+  - intent: affirm
+  - action: utter_affirm
+
+- story: Get subject teacher - unhelpful
+  steps:
+  - intent: ask_subject_teacher
+  - action: action_get_subject_teacher
+  - intent: deny
+  - action: utter_deny
+
+- story: Ask about programming languages - helpful
+  steps:
+  - intent: ask_programming_languages
+  - action: utter_programming_languages
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_affirm
+
+- story: Ask about programming languages - unhelpful
+  steps:
+  - intent: ask_programming_languages
+  - action: utter_programming_languages
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_deny
+
+- story: Ask about attendance policy
+  steps:
+  - intent: ask_attendance_policy
+  - action: utter_attendance_policy
+
+- story: Ask about credit hours system
+  steps:
+  - intent: ask_credit_hours_system
+  - action: utter_credit_hours_system
+
+- story: Ask about the rules
+  steps:
+  - intent: ask_general_rules
+  - action: utter_general_rules
+
+- story: advice for stress management
+  steps:
+  - intent: ask_stress_management
+  - action: utter_stress_management
+
+- story: ask about majors
+  steps:
+  - intent: ask_about_majors
+  - action: utter_ask_about_majors
+
+- story: respond to boredom
+  steps:
+  - intent: mood_bored
+  - action: utter_boredom
+
+- story: respond to transportation
+  steps:
+  - intent: ask_transportation
+  - action: utter_transportation
+
+- story: Answer total hours inquiry
+  steps:
+    - intent: ask_total_hours
+    - action: utter_total_hours
+
+- story: Answer university location inquiry
+  steps:
+    - intent: ask_university_location
+    - action: utter_university_location

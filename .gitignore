@@ -1,0 +1,46 @@
+# Rasa specific
+models/
+.rasa/
+*.tar.gz
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env/
+.venv/
+
+# IDE specific
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs and databases
+*.log
+*.db
+*.sqlite3
+
+# Credentials and secrets
+credentials.yml
+
+# Story test results
+results/
+story_graph.dot
+
+# Training data backups
+*.backup
+
+# Postman Collections
+"استرجاع المواد.postman_collection (2).json"
+
+# Cache files
+.cache/
+*cache*
+
+# Configuration files with sensitive data
+actions/config.py

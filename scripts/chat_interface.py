@@ -27,12 +27,13 @@ class ChatbotGUI:
 
         self.chat_display.insert(tk.END, "You: " + user_message + "\n")
         
-        response = self.get_bot_response(user_message)
+        responses = self.get_bot_response(user_message)
         
-        self.chat_display.insert(tk.END, "Bot: " + response + "\n\n")
+        for response in responses:
+            self.chat_display.insert(tk.END, "Bot: " + response + "\n")
         
+        self.chat_display.insert(tk.END, "\n")
         self.input_field.delete(0, tk.END)
-        
         self.chat_display.see(tk.END)
 
     def get_bot_response(self, message):
@@ -45,11 +46,11 @@ class ChatbotGUI:
             
             response_data = response.json()
             if response_data:
-                return response_data[0]['text']
-            return "No response from bot"
+                return [msg['text'] for msg in response_data]
+            return ["No response from bot"]
             
         except Exception as e:
-            return f"Error: {str(e)}"
+            return [f"Error: {str(e)}"]
 
 def main():
     root = tk.Tk()
