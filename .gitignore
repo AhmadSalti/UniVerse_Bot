@@ -36,7 +36,7 @@ story_graph.dot
 *.backup
 
 # Postman Collections
-"استرجاع المواد.postman_collection (2).json"
+استرجاع المواد.postman_collection (2).json
 
 # Cache files
 .cache/

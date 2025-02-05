@@ -6,6 +6,7 @@ from rapidfuzz import fuzz, process
 import requests
 import re
 from .config import ENDPOINTS
+import jwt
 
 
 def normalize_arabic_text(text: str) -> str:
@@ -467,3 +468,71 @@ class ActionGetSubjectTeacher(Action):
         
         return []
 
+class ActionGetStudentGPA(Action):
+    def name(self) -> Text:
+        return "action_get_student_gpa"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.get_slot('metadata')
+        
+        if not metadata:
+            metadata = tracker.get_slot('session_started_metadata')
+            
+        if not metadata:
+            metadata = tracker.latest_message.get('metadata')
+            
+        if not metadata:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض معدلك التراكمي")
+            return []
+            
+        token = metadata.get('token')
+        
+        if not token:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض معدلك التراكمي")
+            return []
+        
+        try:
+            decoded_token = jwt.decode(token, options={"verify_signature": False})
+            student_id = decoded_token.get('id')
+            
+            if not student_id:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في التحقق من هويتك")
+                return []
+            
+            headers = {'Authorization': f'Bearer {token}'}
+            response = requests.get(f"{ENDPOINTS['get_student_by_id']}/{student_id}", headers=headers)
+            
+            if response.status_code == 200:
+                student_data = response.json()
+                gpa = student_data.get('gpa')
+                name = f"{student_data.get('firstName', '')} {student_data.get('lastName', '')}"
+                
+                if gpa is not None:
+                    gpa_formatted = "{:.2f}".format(gpa)
+                    
+                    gpa_class = ""
+                    if gpa >= 3.7:
+                        gpa_class = "ممتاز"
+                    elif gpa >= 3.0:
+                        gpa_class = "جيد جداً"
+                    elif gpa >= 2.3:
+                        gpa_class = "جيد"
+                    elif gpa >= 2.0:
+                        gpa_class = "مقبول"
+                    else:
+                        gpa_class = "تحت المراقبة الأكاديمية"
+                    
+                    message = f"مرحباً {name}،\nمعدلك التراكمي هو {gpa_formatted} ({gpa_class})"
+                    dispatcher.utter_message(text=message)
+                else:
+                    dispatcher.utter_message(text="عذراً، لم نتمكن من العثور على معدلك التراكمي")
+            else:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع معلومات المعدل التراكمي")
+                
+        except Exception as e:
+            dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع المعلومات")
+        
+        return []

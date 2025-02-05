@@ -278,3 +278,9 @@ stories:
   steps:
     - intent: ask_university_location
     - action: utter_university_location
+
+- story: ask about gpa
+  steps:
+  - intent: ask_about_gpa
+  - action: action_get_student_gpa
+  

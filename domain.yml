@@ -45,6 +45,7 @@ intents:
   - ask_transportation
   - ask_total_hours
   - ask_university_location
+  - ask_about_gpa
 
 entities:
   - subject
@@ -550,6 +551,16 @@ slots:
     - type: from_entity
       entity: subject
     - type: custom
+  metadata:
+    type: any
+    influence_conversation: false
+    mappings:
+    - type: custom
+  student_id:
+    type: text
+    influence_conversation: false
+    mappings:
+    - type: custom
 
 session_config:
   session_expiration_time: 60
@@ -564,3 +575,4 @@ actions:
   - action_get_branch_info
   - action_list_all_subjects
   - action_get_subject_teacher
+  - action_get_student_gpa
