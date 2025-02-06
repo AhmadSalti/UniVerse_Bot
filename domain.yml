@@ -46,6 +46,12 @@ intents:
   - ask_total_hours
   - ask_university_location
   - ask_about_gpa
+  - ask_about_id
+  - ask_about_hours
+  - ask_about_balance
+  - ask_about_enrolled_subjects
+  - ask_about_passed_subjects
+
 
 entities:
   - subject
@@ -576,3 +582,8 @@ actions:
   - action_list_all_subjects
   - action_get_subject_teacher
   - action_get_student_gpa
+  - action_get_student_id
+  - action_get_student_hours
+  - action_get_student_balance
+  - action_get_enrolled_subjects
+  - action_get_passed_subjects
