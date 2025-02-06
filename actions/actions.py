@@ -467,3 +467,313 @@ class ActionGetSubjectTeacher(Action):
         
         return []
 
+class ActionGetStudentGPA(Action):
+    def name(self) -> Text:
+        return "action_get_student_gpa"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.latest_message.get('metadata')
+        
+        if not metadata:
+            metadata = tracker.get_slot('session_started_metadata')
+            
+        if not metadata:
+            metadata = tracker.get_slot('metadata')
+            
+        if not metadata:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول كطالب أولاً لعرض معدلك التراكمي")
+            return []
+            
+        student_id = metadata.get('student_id')
+        
+        if not student_id:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض معدلك التراكمي")
+            return []
+        
+        try:
+            response = requests.get(f"{ENDPOINTS['get_student_by_id']}/{student_id}")
+            
+            if response.status_code == 200:
+                student_data = response.json()
+                gpa = student_data.get('gpa')
+                name = f"{student_data.get('firstName', '')} {student_data.get('lastName', '')}"
+                
+                if gpa is not None:
+                    gpa_formatted = "{:.2f}".format(gpa)
+                    
+                    gpa_class = ""
+                    if gpa >= 3.7:
+                        gpa_class = "ممتاز"
+                    elif gpa >= 3.0:
+                        gpa_class = "جيد جداً"
+                    elif gpa >= 2.3:
+                        gpa_class = "جيد"
+                    elif gpa >= 2.0:
+                        gpa_class = "مقبول"
+                    else:
+                        gpa_class = "تحت المراقبة الأكاديمية"
+                    
+                    message = f"مرحباً {name}،\nمعدلك التراكمي هو {gpa_formatted} ({gpa_class})"
+                    dispatcher.utter_message(text=message)
+                else:
+                    dispatcher.utter_message(text="عذراً، لم نتمكن من العثور على معدلك التراكمي")
+            else:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع معلومات المعدل التراكمي")
+                
+        except Exception as e:
+            dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع المعلومات")
+        
+        return []
+
+class ActionGetStudentId(Action):
+    def name(self) -> Text:
+        return "action_get_student_id"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.latest_message.get('metadata')
+        
+        if not metadata:
+            metadata = tracker.get_slot('session_started_metadata')
+            
+        if not metadata:
+            metadata = tracker.get_slot('metadata')
+            
+        if not metadata:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض رقمك الجامعي")
+            return []
+            
+        student_id = metadata.get('student_id')
+        
+        if not student_id:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض رقمك الجامعي")
+            return []
+        
+        try:
+            response = requests.get(f"{ENDPOINTS['get_student_by_id']}/{student_id}")
+            
+            if response.status_code == 200:
+                student_data = response.json()
+                name = f"{student_data.get('firstName', '')} {student_data.get('lastName', '')}"
+                id_number = student_data.get('id')
+                
+                message = f"مرحباً {name}،\nرقمك الجامعي هو: {id_number}"
+                dispatcher.utter_message(text=message)
+            else:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع معلومات الرقم الجامعي")
+                
+        except Exception as e:
+            dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع المعلومات")
+        
+        return []
+    
+class ActionGetStudentHours(Action):
+    def name(self) -> Text:
+        return "action_get_student_hours"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.latest_message.get('metadata')
+        
+        if not metadata:
+            metadata = tracker.get_slot('session_started_metadata')
+            
+        if not metadata:
+            metadata = tracker.get_slot('metadata')
+            
+        if not metadata:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض عدد ساعاتك المنجزة")
+            return []
+            
+        student_id = metadata.get('student_id')
+        
+        if not student_id:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض عدد ساعاتك المنجزة")
+            return []
+        
+        try:
+            response = requests.get(f"{ENDPOINTS['get_student_by_id']}/{student_id}")
+            
+            if response.status_code == 200:
+                student_data = response.json()
+                name = f"{student_data.get('firstName', '')} {student_data.get('lastName', '')}"
+                hours = student_data.get('hoursAchieved', 0)
+                
+                message = f"مرحباً {name}،\nعدد الساعات المعتمدة المنجزة هو: {hours} ساعة"
+                dispatcher.utter_message(text=message)
+            else:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع معلومات الساعات المنجزة")
+                
+        except Exception as e:
+            dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع المعلومات")
+        
+        return []
+    
+class ActionGetStudentBalance(Action):
+    def name(self) -> Text:
+        return "action_get_student_balance"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.latest_message.get('metadata')
+        
+        if not metadata:
+            metadata = tracker.get_slot('session_started_metadata')
+            
+        if not metadata:
+            metadata = tracker.get_slot('metadata')
+            
+        if not metadata:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض رصيدك")
+            return []
+            
+        student_id = metadata.get('student_id')
+        
+        if not student_id:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض رصيدك")
+            return []
+        
+        try:
+            response = requests.get(f"{ENDPOINTS['get_student_by_id']}/{student_id}")
+            
+            if response.status_code == 200:
+                student_data = response.json()
+                name = f"{student_data.get('firstName', '')} {student_data.get('lastName', '')}"
+                balance = student_data.get('balance', 0)
+                
+                message = f"مرحباً {name}،\nرصيدك الحالي هو: {balance} ل.س"
+                dispatcher.utter_message(text=message)
+            else:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع معلومات الرصيد")
+                
+        except Exception as e:
+            dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع المعلومات")
+        
+        return []
+    
+class ActionGetEnrolledSubjects(Action):
+    def name(self) -> Text:
+        return "action_get_enrolled_subjects"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.latest_message.get('metadata')
+        
+        if not metadata:
+            metadata = tracker.get_slot('session_started_metadata')
+            
+        if not metadata:
+            metadata = tracker.get_slot('metadata')
+            
+        if not metadata:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض المواد المسجلة")
+            return []
+            
+        student_id = metadata.get('student_id')
+        
+        if not student_id:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض المواد المسجلة")
+            return []
+        
+        try:
+            response = requests.get(f"{ENDPOINTS['get_student_enrollments']}/{student_id}")
+            
+            if response.status_code == 200:
+                enrollments = response.json()
+                
+                # Filter only currently enrolled subjects
+                current_enrollments = [
+                    enrollment for enrollment in enrollments 
+                    if enrollment.get('status') == "Enrolled"
+                ]
+                
+                if not current_enrollments:
+                    dispatcher.utter_message(text="لا يوجد لديك مواد مسجلة في الفصل الحالي")
+                    return []
+                
+                # Extract subject names from enrollments
+                subject_names = [enrollment.get('subjectName', '') for enrollment in current_enrollments]
+                
+                # Format the message
+                message = "المواد المسجلة في الفصل الحالي:\n\n"
+                for i, subject in enumerate(subject_names, 1):
+                    message += f"{i}. {subject}\n"
+                
+                dispatcher.utter_message(text=message)
+            else:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع معلومات المواد المسجلة")
+                
+        except Exception as e:
+            dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع المعلومات")
+        
+        return []
+    
+class ActionGetPassedSubjects(Action):
+    def name(self) -> Text:
+        return "action_get_passed_subjects"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        metadata = tracker.latest_message.get('metadata')
+        
+        if not metadata:
+            metadata = tracker.get_slot('session_started_metadata')
+            
+        if not metadata:
+            metadata = tracker.get_slot('metadata')
+            
+        if not metadata:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض المواد المنجزة")
+            return []
+            
+        student_id = metadata.get('student_id')
+        
+        if not student_id:
+            dispatcher.utter_message(text="عذراً، يجب عليك تسجيل الدخول أولاً لعرض المواد المنجزة")
+            return []
+        
+        try:
+            response = requests.get(f"{ENDPOINTS['get_student_enrollments']}/{student_id}")
+            
+            if response.status_code == 200:
+                enrollments = response.json()
+                
+                # Filter only passed subjects
+                passed_subjects = [
+                    enrollment for enrollment in enrollments 
+                    if enrollment.get('status') == "Passed"
+                ]
+                
+                if not passed_subjects:
+                    dispatcher.utter_message(text="لم تنجح في أي مادة بعد")
+                    return []
+                
+                # Extract subject names from enrollments
+                subject_names = [subject.get('subjectName', '') for subject in passed_subjects]
+                
+                # Format the message
+                message = "المواد التي نجحت فيها:\n\n"
+                for i, subject in enumerate(subject_names, 1):
+                    message += f"{i}. {subject}\n"
+                
+                dispatcher.utter_message(text=message)
+            else:
+                dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع معلومات المواد المنجزة")
+                
+        except Exception as e:
+            dispatcher.utter_message(text="عذراً، حدث خطأ في استرجاع المعلومات")
+        
+        return []

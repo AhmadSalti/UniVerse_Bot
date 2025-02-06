@@ -278,3 +278,33 @@ stories:
   steps:
     - intent: ask_university_location
     - action: utter_university_location
+
+- story: ask about gpa
+  steps:
+  - intent: ask_about_gpa
+  - action: action_get_student_gpa
+  
+- story: ask about university id
+  steps:
+  - intent: ask_about_id
+  - action: action_get_student_id
+
+- story: ask about achieved hours
+  steps:
+  - intent: ask_about_hours
+  - action: action_get_student_hours
+
+- story: ask about balance
+  steps:
+  - intent: ask_about_balance
+  - action: action_get_student_balance
+
+- story: ask about enrolled subjects
+  steps:
+  - intent: ask_about_enrolled_subjects
+  - action: action_get_enrolled_subjects
+
+- story: ask about passed subjects
+  steps:
+  - intent: ask_about_passed_subjects
+  - action: action_get_passed_subjects
