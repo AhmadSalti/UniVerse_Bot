@@ -15,6 +15,15 @@ pipeline:
   - name: CountVectorsFeaturizer
   - name: LexicalSyntacticFeaturizer 
   - name: EntitySynonymMapper
+  - name: LanguageModelFeaturizer
+    model: "aubmindlab/bert-base-arabert"
+    cache_dir: "./cache/arabert"
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+  - name: LanguageModelFeaturizer
+    model: "CAMeL-Lab/bert-base-arabic-camelbert-mix"
+    cache_dir: "./cache/camelbert"
   - name: RegexFeaturizer
   - name: RegexEntityExtractor
     use_word_boundaries: True

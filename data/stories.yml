@@ -308,3 +308,8 @@ stories:
   steps:
   - intent: ask_about_passed_subjects
   - action: action_get_passed_subjects
+
+- story: ask capabilities
+  steps:
+  - intent: ask_capabilities
+  - action: utter_capabilities
