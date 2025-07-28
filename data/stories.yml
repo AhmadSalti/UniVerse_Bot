@@ -118,7 +118,7 @@ stories:
 - story: Handle fallback
   steps:
   - intent: nlu_fallback
-  - action: utter_default
+  - action: action_llm_fallback
 
 - story: Get subject description - helpful
   steps:
@@ -313,3 +313,27 @@ stories:
   steps:
   - intent: ask_capabilities
   - action: utter_capabilities
+
+- story: Get subject practical teacher - helpful
+  steps:
+  - intent: ask_subject_practical_teacher
+  - action: action_get_subject_practical_teacher
+  - intent: affirm
+  - action: utter_affirm
+
+- story: Get subject practical teacher - unhelpful
+  steps:
+  - intent: ask_subject_practical_teacher
+  - action: action_get_subject_practical_teacher
+  - intent: deny
+  - action: utter_deny
+
+- story: ask_subjects_by_year
+  steps:
+  - intent: ask_subjects_by_year
+  - action: action_get_subjects_by_year
+
+- story: ask lecture schedule - helpful
+  steps:
+  - intent: ask_lecture_schedule
+  - action: action_get_lecture_schedule

@@ -51,8 +51,10 @@ intents:
   - ask_about_balance
   - ask_about_enrolled_subjects
   - ask_about_passed_subjects
-
-
+  - ask_subject_practical_teacher
+  - ask_subjects_by_year
+  - ask_lecture_schedule
+  
 entities:
   - subject
   - branch
@@ -245,11 +247,6 @@ responses:
     - text: "هل كان هذا مفيداً؟"
     - text: "هل وجدت الإجابة مفيدة؟"
     - text: "هل حصلت على المعلومات التي تريدها؟"
-
-  utter_default:
-    - text: "عذراً، لم أستطع فهم رسالتك. هل يمكنك المحاولة مرة أخرى؟"
-    - text: "لم أفهم ما كتبت. هل يمكنك إعادة الكتابة بشكل أوضح؟"
-    - text: "عذراً، لم أفهم. هل تقصد شيئاً متعلقاً بالمواد الدراسية؟"
 
   utter_programming_languages:
     - text: "خلال دراستك في كلية الهندسة المعلوماتية، ستتعلم وتستخدم عدة لغات برمجة أساسية:
@@ -549,6 +546,12 @@ responses:
 
              📧 البريد الإلكتروني: info@aspu.edu.sy"
 
+  utter_lecture_schedule:
+    - text: "سأقوم بالبحث عن جدول محاضرات مادة {subject} لك. يرجى الانتظار قليلاً..."
+    - text: "دعني أتحقق من مواعيد محاضرات مادة {subject}..."
+    - text: "سأبحث لك عن جدول محاضرات مادة {subject} الآن..."
+    - text: "أحضر لك معلومات محاضرات مادة {subject}..."
+
   utter_capabilities:
     - text: "أنا يونيفيرس، مساعدك الأكاديمي الشخصي! 🎓 يمكنني مساعدتك في:
 
@@ -628,3 +631,7 @@ actions:
   - action_get_student_balance
   - action_get_enrolled_subjects
   - action_get_passed_subjects
+  - action_get_subject_practical_teacher
+  - action_get_subjects_by_year
+  - action_get_lecture_schedule
+  - action_llm_fallback
